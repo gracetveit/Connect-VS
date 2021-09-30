@@ -8,7 +8,7 @@
     "build": "webpack",
     "build:dev": "MODE=development webpack -- --watch",
     "server": "ts-node server",
-    "server-build:dev": "tsc --w",
+    "server-build:dev": "JWT=shh tsc --w",
     "server:dev": "npm run server-build:dev & nodemon dist/server",
     "start:dev": "npm run build:dev & npm run server:dev",
     "seed": "ts-node scripts/seed"
@@ -27,6 +27,7 @@
   "devDependencies": {
     "@types/express": "^4.17.13",
     "@types/faker": "^5.5.8",
+    "@types/jsonwebtoken": "^8.5.5",
     "@types/morgan": "^1.9.3",
     "@types/react": "^17.0.25",
     "@types/react-dom": "^17.0.9",
