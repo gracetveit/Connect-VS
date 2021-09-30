@@ -4,7 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "build:dev": "MODE=development webpack -- --watch",
+    "server": "ts-node server",
+    "server-build:dev": "tsc --w",
+    "server:dev": "npm run server-build:dev & nodemon dist/server",
+    "start:dev": "npm run build:dev & npm run server:dev"
   },
   "repository": {
     "type": "git",
@@ -18,9 +24,14 @@
   },
   "homepage": "https://github.com/gracetveit/Connect-VS#readme",
   "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/morgan": "^1.9.3",
     "@types/react": "^17.0.25",
     "@types/react-dom": "^17.0.9",
+    "@types/redux-logger": "^3.0.9",
     "faker": "^5.5.3",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.13",
     "prettier": "^2.4.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -28,18 +39,21 @@
     "react-router-dom": "^5.3.0",
     "redux": "^4.1.1",
     "redux-devtools-extension": "^2.13.9",
+    "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
+    "ts-loader": "^9.2.6",
     "typescript": "^4.4.3",
     "webpack": "^5.55.1",
     "webpack-cli": "^4.8.0"
   },
   "dependencies": {
+    "@prisma/client": "^3.1.1",
     "argon2": "^0.28.2",
     "axios": "^0.21.4",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
-    "morgan": "^1.10.0",
-    "prisma": "^3.1.1"
+    "prisma": "^3.1.1",
+    "ts-node": "^10.2.1"
   }
 }
