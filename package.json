@@ -4,7 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "build:dev": "MODE=development webpack -- --watch",
+    "server": "ts-node server",
+    "server-build:dev": "tsc --w",
+    "server:dev": "npm run server-build:dev & nodemon dist/server",
+    "start:dev": "npm run build:dev & npm run server:dev"
   },
   "repository": {
     "type": "git",
@@ -24,6 +30,7 @@
     "@types/react-dom": "^17.0.9",
     "faker": "^5.5.3",
     "morgan": "^1.10.0",
+    "nodemon": "^2.0.13",
     "prettier": "^2.4.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
