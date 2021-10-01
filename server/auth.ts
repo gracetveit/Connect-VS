@@ -2,7 +2,6 @@ import express, { NextFunction, Request, Response } from 'express';
 import * as argon2 from 'argon2';
 import { generateToken, verifyToken } from './db/auth';
 import db from './db';
-import { bindActionCreators } from 'redux';
 
 const router = express.Router();
 
