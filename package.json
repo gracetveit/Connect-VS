@@ -11,7 +11,10 @@
     "server-build:dev": "JWT=shh tsc --w",
     "server:dev": "npm run server-build:dev & nodemon dist/server",
     "start:dev": "npm run build:dev & npm run server:dev",
-    "seed": "ts-node scripts/seed"
+    "seed": "prisma migrate reset -f"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed"
   },
   "repository": {
     "type": "git",
