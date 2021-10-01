@@ -39,7 +39,7 @@ const createGames = async (n: number) => {
     });
   } catch (e) {}
   await createGames(n - 1);
-  await db.game.createMany({ data: goodGames });
+  await db.game.createMany({ data: goodGames, skipDuplicates: true });
 };
 
 const main = async () => {

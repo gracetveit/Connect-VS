@@ -2,7 +2,6 @@ import { User } from '.prisma/client';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { Dispatch } from 'redux';
-import { verifyToken } from '../db/auth';
 
 // Constants
 const SET_ME = 'SET_ME';
@@ -19,7 +18,9 @@ export const me = () => {
     try {
       const token = Cookies.get('token');
       if (token) {
-        const { data } = await axios.get('/auth/me', { headers: token });
+        const { data } = await axios.get('/auth/me', {
+          headers: { authorization: token },
+        });
         dispatch(setMe(data));
       }
     } catch (error) {
@@ -50,7 +51,9 @@ export const authenticate = (
 export const logout = () => {
   return async (dispatch: Dispatch) => {
     try {
-      await axios.post('/auth/logout', { token: Cookies.get('token') });
+      await axios.post('/auth/logout', undefined, {
+        headers: { authorization: Cookies.get('token') },
+      });
       Cookies.remove('token');
       dispatch(setMe({} as any));
     } catch (error) {
@@ -62,6 +65,8 @@ export const logout = () => {
 // Reducer
 export default (state: any = {}, action: any) => {
   switch (action.type) {
+    case SET_ME:
+      return action.user;
     default:
       return state;
   }

@@ -4,7 +4,7 @@ import db from './';
 
 export const generateToken = async (username: string, pw: string) => {
   const user = await db.user.findUnique({ where: { username } });
-  if (!user || (await argon2.verify(user.pwHash, pw))) {
+  if (!user || !(await argon2.verify(user.pwHash, pw))) {
     const error = Error('Incorrect Username/Password');
     throw error;
   }

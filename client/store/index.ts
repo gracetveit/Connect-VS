@@ -4,6 +4,7 @@ import thunkMiddleware from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 
 import auth from './auth';
+import { User } from '.prisma/client';
 
 const reducer = combineReducers({ auth });
 
@@ -13,3 +14,6 @@ const middleware = composeWithDevTools(
 const store = createStore(reducer, middleware);
 
 export default store;
+export type RootState = {
+  auth: User;
+};

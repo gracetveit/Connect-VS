@@ -4,6 +4,7 @@ const path = require('path');
 module.exports = {
   entry: './client/index.tsx',
   mode: process.env.MODE,
+  devtool: 'inline-source-map',
   module: {
     rules: [
       {
