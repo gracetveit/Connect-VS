@@ -66,7 +66,7 @@ export const logout = () => {
 export default (state: any = {}, action: any) => {
   switch (action.type) {
     case SET_ME:
-      return action.user;
+      return { ...action.user };
     default:
       return state;
   }

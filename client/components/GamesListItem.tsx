@@ -6,7 +6,7 @@ export default (props: any) => {
     <Link to={`/games/${props.gameTitle}`}>
       <div>
         <h2>{props.gameTitle}</h2>
-        <p>Score: ???</p>
+        {props.score ? <p>Score: {props.score}</p> : <React.Fragment />}
       </div>
     </Link>
   );
