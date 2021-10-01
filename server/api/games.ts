@@ -10,7 +10,7 @@ const getSingleGame = async (
 ) => {
   try {
     const game = await db.game.findUnique({
-      where: { id: parseInt(req.params.gameId) },
+      where: { name: req.params.gameName },
     });
     if (game) {
       res.send(game);
@@ -31,7 +31,7 @@ const getAllGames = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-router.get('/:gameId', getSingleGame);
+router.get('/:gameName', getSingleGame);
 router.get('/', getAllGames);
 
 export default router;

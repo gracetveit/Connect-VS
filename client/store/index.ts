@@ -4,9 +4,11 @@ import thunkMiddleware from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 
 import auth from './auth';
+import allGames from './allGames';
+import singleGame from './singleGame';
 import { User } from '.prisma/client';
 
-const reducer = combineReducers({ auth });
+const reducer = combineReducers({ auth, allGames, singleGame });
 
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
