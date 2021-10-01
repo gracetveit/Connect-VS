@@ -15,7 +15,7 @@ const createUsers = async (n: number): Promise<User[]> => {
 };
 
 const createMe = async () => {
-  await db.user.create({
+  return await db.user.create({
     data: {
       username: 'main',
       pwHash: await argon2.hash('12345'),
@@ -50,6 +50,8 @@ const createRankings = async (n: number, userList: User[]) => {
   try {
     await db.ranking.create({
       data: {
+        gamesPlayed: Math.floor(Math.random() * 1000),
+        score: Math.floor(Math.random() * 1000) + 1000,
         userId,
         gameId,
       },
@@ -64,12 +66,14 @@ const main = async () => {
   const n = 100;
   const userList = await createUsers(n);
   console.log(`${n} Users created`);
-  await createMe();
+  const me = await createMe();
   console.log('main user has been created');
   await createGames(25 - goodGames.length);
   console.log('Games Created');
-  createRankings(n, userList);
+  await createRankings(n, userList);
   console.log('Rankings Created');
+  await createRankings(5, [me]);
+  console.log('main Rankings created');
 };
 
 main();
