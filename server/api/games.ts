@@ -11,6 +11,18 @@ const getSingleGame = async (
   try {
     const game = await db.game.findUnique({
       where: { name: req.params.gameName },
+      include: {
+        rankings: {
+          select: {
+            score: true,
+            user: {
+              select: {
+                status: true,
+              },
+            },
+          },
+        },
+      },
     });
     if (game) {
       res.send(game);
