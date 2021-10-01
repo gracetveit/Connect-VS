@@ -6,7 +6,7 @@ import { createLogger } from 'redux-logger';
 import auth from './auth';
 import allGames from './allGames';
 import singleGame from './singleGame';
-import { User } from '.prisma/client';
+import { User, Game } from '.prisma/client';
 
 const reducer = combineReducers({ auth, allGames, singleGame });
 
@@ -18,4 +18,6 @@ const store = createStore(reducer, middleware);
 export default store;
 export type RootState = {
   auth: User;
+  allGames: Game[];
+  singleGame: Game;
 };

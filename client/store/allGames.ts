@@ -22,6 +22,8 @@ export const fetchGames = () => async (dispatch: Dispatch) => {
 // Reducer
 export default (state: Game[] = [], action: any) => {
   switch (action.type) {
+    case SET_GAMES:
+      return action.games;
     default:
       return state;
   }
