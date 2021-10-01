@@ -1,16 +1,17 @@
 import db from '../server/db';
 import faker from 'faker';
 import * as argon2 from 'argon2';
+import { User } from '.prisma/client';
 
-const createUsers = async (n: number) => {
-  if (n === 0) return;
-  await db.user.create({
+const createUsers = async (n: number): Promise<User[]> => {
+  if (n === 0) return [];
+  const user = await db.user.create({
     data: {
       username: faker.internet.userName(),
       pwHash: await argon2.hash(faker.internet.password()),
     },
   });
-  await createUsers(n - 1);
+  return [user, ...(await createUsers(n - 1))];
 };
 
 const createMe = async () => {
@@ -30,7 +31,7 @@ const goodGames = [
 const createGames = async (n: number) => {
   if (n === 0) return;
   try {
-    await db.game.create({
+    const game = await db.game.create({
       data: {
         name: `${faker.hacker.adjective()} ${faker.hacker.noun()} ${Math.floor(
           Math.random() * 15
@@ -42,14 +43,33 @@ const createGames = async (n: number) => {
   await db.game.createMany({ data: goodGames, skipDuplicates: true });
 };
 
+const createRankings = async (n: number, userList: User[]) => {
+  if (n === 0) return;
+  const userId = userList[Math.floor(Math.random() * userList.length)].id;
+  const gameId = Math.floor(Math.random() * 24) + 1;
+  try {
+    await db.ranking.create({
+      data: {
+        userId,
+        gameId,
+      },
+    });
+  } catch (error: any) {
+    await createRankings(n, userList);
+  }
+  await createRankings(n - 1, userList);
+};
+
 const main = async () => {
   const n = 100;
-  await createUsers(n);
+  const userList = await createUsers(n);
   console.log(`${n} Users created`);
   await createMe();
   console.log('main user has been created');
-  await createGames(n - goodGames.length);
+  await createGames(25 - goodGames.length);
   console.log('Games Created');
+  createRankings(n, userList);
+  console.log('Rankings Created');
 };
 
 main();
